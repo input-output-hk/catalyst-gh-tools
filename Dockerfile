@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM ghcr.io/input-output-hk/catalyst-gh-mdbook-doc:v0.6
+FROM ghcr.io/input-output-hk/catalyst-gh-mdbook-doc:v0.7
 
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info

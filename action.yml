@@ -5,7 +5,7 @@ inputs:
   tool-cmd:  # id of input
     description: 'The command to run'
     required: false
-    default: ''
+    default: ""
   entrypoint: # Different Entrypoint
     description: 'Change the default entrypoint.'
     required: false
