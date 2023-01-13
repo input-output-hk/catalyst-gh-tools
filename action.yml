@@ -1,6 +1,6 @@
 # action.yml
 name: 'Project Catalyst Pre-built tooling Build Action'
-description: 'Use pre-built tools to spee upd and simplify CI'
+description: 'Use pre-built tools to speed up and simplify CI'
 inputs:
   tool-cmd:  # id of input
     description: 'The command to run'
