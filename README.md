@@ -22,13 +22,12 @@ Container to speed up and simplify building in CI that requires tools to be buil
 NOTE: *Requires the cargo make command of the project to have a 'build-docs-linkcheck' rule*
 
 ```yaml
-runs:
+run:
   using: 'docker'
-  image: 'input-output-hk/catalyst-standards:v0.8'
-  entrypoint: 'cargo'
-  args:
-    - 'make'
-    - 'build-docs-linkcheck'
+  image: 'input-output-hk/catalyst-gh-tools:v0.8'
+  with:
+    entrypoint: cargo
+    args: make build-docs-linkcheck
 ```
 
 ## How it works

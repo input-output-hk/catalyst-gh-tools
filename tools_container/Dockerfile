@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM rust:1.66.1-slim
+FROM rust:1.66.1-slim as build
 
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
@@ -43,14 +43,18 @@ RUN cargo install mdbook-open-on-gh --vers ${MDBOOK_OPEN_ON_GH_VERSION} --verbos
 RUN cargo install mdbook-regex --vers ${MDBOOK_REGEX_VERSION} --verbose
 RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 
+# Copies your code file from your action repository to the filesystem path `/` of the container
+COPY entrypoint.sh /entrypoint.sh
+
+# NOW flatten the image
+FROM scratch
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
 
+COPY --from=build / /
+
 # used when serving
 EXPOSE 3000
-
-# Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /entrypoint.sh
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
