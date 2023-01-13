@@ -5,12 +5,18 @@ inputs:
   tool-cmd:  # id of input
     description: 'The command to run'
     required: false
-    default: 'mdbook build'
+    default: ''
+  entrypoint: # Different Entrypoint
+    description: 'Change the default entrypoint.'
+    required: false
+    default: '/entrypoint.sh'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  entrypoint: 
   args:
     - ${{ inputs.tool-cmd }}
+    - ${{ inputs.entrypoint-script }}
 branding:
   icon: 'settings'
   color: 'purple'
