@@ -6,6 +6,8 @@ on:
       - tools_container
     branches:
       - 'master'
+  release:
+    types: [published]
     tags:
       - 'v*'
 
