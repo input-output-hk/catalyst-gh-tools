@@ -2,7 +2,10 @@ name: Create and publish a Docker image of our mdbook tools
 
 on:
   push:
-    branches: ['main']
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
 
 env:
   REGISTRY: ghcr.io
@@ -16,9 +19,6 @@ jobs:
       packages: write
 
     steps:
-      - name: debug
-        run: env
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
