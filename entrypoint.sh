@@ -1,8 +1,8 @@
 #!/bin/sh -l
+
+# We do this just to help debug when the action is invocated
 pwd
 ls -al
-echo /bin/mdbook $@
-/bin/mdbook $@
-ls -al book
-ls -al book/html
-ls -al book/linkcheck
+echo "$@"
+
+"$@"
