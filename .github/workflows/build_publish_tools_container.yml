@@ -16,6 +16,9 @@ jobs:
       packages: write
 
     steps:
+      - name: debug
+        run: env
+
       - name: Checkout repository
         uses: actions/checkout@v3
 

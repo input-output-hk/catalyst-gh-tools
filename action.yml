@@ -1,16 +1,16 @@
 # action.yml
-name: 'Project Catalyst Github mbBook Build Action'
-description: 'Build mdBooks for project catalyst'
+name: 'Project Catalyst Pre-built tooling Build Action'
+description: 'Use pre-built tools to spee upd and simplify CI'
 inputs:
-  mdbook-cmd:  # id of input
-    description: 'The command to give mdbook'
+  tool-cmd:  # id of input
+    description: 'The command to run'
     required: false
-    default: 'build'
+    default: 'mdbook build'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.mdbook-cmd }}
+    - ${{ inputs.tool-cmd }}
 branding:
-  icon: 'book-open'
+  icon: 'settings'
   color: 'purple'
