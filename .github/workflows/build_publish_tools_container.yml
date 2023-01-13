@@ -2,6 +2,8 @@ name: Create and publish a Docker image of our mdbook tools
 
 on:
   push:
+    paths:
+      - tools_container
     branches:
       - 'master'
     tags:
