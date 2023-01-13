@@ -46,15 +46,5 @@ RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
-# NOW flatten the image
-FROM scratch
-LABEL maintainer="steven.johnson@iohk.io"
-ENV RUST_LOG info
-
-COPY --from=build / /
-
-# used when serving
-EXPOSE 3000
-
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
