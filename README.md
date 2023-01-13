@@ -1,6 +1,6 @@
-# Project Catalyst Github Action for supplying Rust and related tools to speed up CI builds
+# Project Catalyst Tools Container for supplying Rust and related tools to speed up CI builds
 
-Custom GH Action to speed up and simplify building in CI that requires tools to be built during the CI process.
+Container to speed up and simplify building in CI that requires tools to be built during the CI process.
 
 ## Tools Provided
 
@@ -15,24 +15,6 @@ Custom GH Action to speed up and simplify building in CI that requires tools to 
   * mdbook-regex
   * mdbook-admonish
 
-## Inputs
-
-## `tool-cmd`
-
-**Required** when `entrypoint` not customized.
-
-This command is run verbatim, inside the container, at the root of the checked-out repository along with any arguments following it.
-
-If the `entrypoint` is modified, this only contains the arguments to that `entrypoint` and is not required.
-
-## `entrypoint`
-
-**Optional** Over-ride the default entry point.
-
-## Outputs
-
-None, other than build artefacts from the executed command.
-
 ## Example usage
 
 ### Build mdbook docs and fail on linkcheck
@@ -40,20 +22,13 @@ None, other than build artefacts from the executed command.
 NOTE: *Requires the cargo make command of the project to have a 'build-docs-linkcheck' rule*
 
 ```yaml
-uses:  input-output-hk/catalyst-standards@v0.6
-with:
-  tool-cmd: cargo make build-docs-linkcheck
-```
-
-### Use a custom entry point from the repo
-
-NOTE: *Requires the repo to have the 'my_entrypoint.sh' in its root.*
-
-```yaml
-uses:  input-output-hk/catalyst-standards@v0.6
-with:
-  entrypoint: './my_entrypoint.sh'
-  tool-cmd: parameters to my entrypoint would go here
+runs:
+  using: 'docker'
+  image: 'input-output-hk/catalyst-standards:v0.8'
+  entrypoint: 'cargo'
+  args:
+    - 'make'
+    - 'build-docs-linkcheck'
 ```
 
 ## How it works
@@ -68,20 +43,8 @@ This container is automatically built by github CI using `.github/workflows/buil
   * Image is called `input-output-hk/catalyst-standards:v??`
   * Latest Image is updated in `input-output-hk/catalyst-standards:latest`
 
-The `./Dockerfile` is then used by the action when run by the consuming CI.  It creates a NEW temporary container and customizes that container's entry point.
+The `./Dockerfile` is then used by CI to quickly provide all the tools we might need.
 
-### Optional usage
+### Recommendation
 
-Instead of using this GitHub action, the 'input-output-hk/catalyst-standards` tools container can be used directly in CI.
-
-Example:
-
-```yaml
-runs:
-  using: 'docker'
-  image: 'input-output-hk/catalyst-standards:v0.5'
-  args:
-    - 'bzz'
-  pre-entrypoint: 'setup.sh'
-  entrypoint: 'main.sh'
-```
+The specific version of the container should always be specified so that updates do not break builds unexpectedly.

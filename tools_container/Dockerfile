@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM rust:1.66.1-slim AS build
+FROM rust:1.66.1-slim
 
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
@@ -43,8 +43,14 @@ RUN cargo install mdbook-open-on-gh --vers ${MDBOOK_OPEN_ON_GH_VERSION} --verbos
 RUN cargo install mdbook-regex --vers ${MDBOOK_REGEX_VERSION} --verbose
 RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 
+LABEL maintainer="steven.johnson@iohk.io"
+ENV RUST_LOG info
 
-# Nominally this is an `mdbook` Tool container, but we have everything 
-# the Rust 1.66.1 docker container has available as well any other tools we 
-# install.
-ENTRYPOINT [ "/bin/mdbook" ]
+# used when serving
+EXPOSE 3000
+
+# Copies your code file from your action repository to the filesystem path `/` of the container
+COPY entrypoint.sh /entrypoint.sh
+
+# Code file to execute when the docker container starts up (`entrypoint.sh`)
+ENTRYPOINT ["/entrypoint.sh"]
