@@ -37,6 +37,7 @@ RUN apt-get update && \
         llvm-dev \
         libclang-dev \
         nodejs \
+        postgresql-client \
         libc6-dev && \
     rm -rf /var/cache/apt/lists
 
