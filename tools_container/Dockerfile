@@ -67,6 +67,12 @@ RUN rm -rf /usr/share/doc
 # Create an image from scratch to minimize layers
 FROM scratch
 
+# Replicate necessary environment from Rust and Bullseye containers.
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH \
+    RUST_VERSION=1.66.1
+
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
 
