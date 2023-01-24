@@ -18,6 +18,8 @@ ARG MDBOOK_REGEX_VERSION="0.0.2"
 ARG MDBOOK_ADMONISH_VERSION="1.8.0"
 ARG MDBOOK_TOC_VERSION="0.11.0"
 ARG MDBOOK_FS_SUMMARY_VERSION="0.2.1"
+ARG MDBOOK_TEMPLATE_VERSION="1.1.0"
+ARG MDBOOK_THEME_VERSION="0.1.2"
 ARG CARGO_SPELLCHECK_VERSION="0.12.3"
 
 ENV CARGO_INSTALL_ROOT /usr/local/
@@ -52,6 +54,8 @@ RUN cargo install mdbook-open-on-gh --vers ${MDBOOK_OPEN_ON_GH_VERSION} --verbos
 RUN cargo install mdbook-regex --vers ${MDBOOK_REGEX_VERSION} --verbose
 RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 RUN cargo install mdbook-fs-summary --vers ${MDBOOK_FS_SUMMARY_VERSION} --verbose
+RUN cargo install mdbook-template --vers ${MDBOOK_TEMPLATE_VERSION} --verbose
+RUN cargo install mdbook-theme --vers ${MDBOOK_THEME_VERSION} --verbose
 
 RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
 
