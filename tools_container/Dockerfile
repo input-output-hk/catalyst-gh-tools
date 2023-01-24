@@ -53,8 +53,28 @@ RUN cargo install mdbook-regex --vers ${MDBOOK_REGEX_VERSION} --verbose
 RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 RUN cargo install mdbook-fs-summary --vers ${MDBOOK_FS_SUMMARY_VERSION} --verbose
 
+RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
+
+# Remove unused bulky cruft
+RUN apt-get clean
+RUN cargo-cache
+RUN rm -rf /tmp; mkdir /tmp
+RUN rm -rf /usr/share/doc
+
+# Create an image from scratch to minimize layers
+FROM scratch
+
+LABEL maintainer="steven.johnson@iohk.io"
+ENV RUST_LOG info
+
+COPY --from=build / /
+
+# used when serving mdbook
+EXPOSE 3000
+
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
