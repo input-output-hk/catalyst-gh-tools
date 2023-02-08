@@ -1,5 +1,11 @@
 # Container image that runs your code
-FROM rust:1.66.1-slim as build
+FROM rust:1.67-slim as build
+
+# Install nightly so we can use it to build rustdocs index pages
+RUN rustup toolchain install nightly-2023-02-07 \
+        --allow-downgrade \
+        --profile minimal \
+        --component clippy
 
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
@@ -21,6 +27,7 @@ ARG MDBOOK_FS_SUMMARY_VERSION="0.2.1"
 ARG MDBOOK_TEMPLATE_VERSION="1.1.0"
 ARG MDBOOK_THEME_VERSION="0.1.2"
 ARG CARGO_SPELLCHECK_VERSION="0.12.3"
+ARG CARGO_DEPGRAPH="1.4.0"
 
 ENV CARGO_INSTALL_ROOT /usr/local/
 ENV CARGO_TARGET_DIR /tmp/target/
@@ -56,6 +63,7 @@ RUN cargo install mdbook-admonish --vers ${MDBOOK_ADMONISH_VERSION} --verbose
 RUN cargo install mdbook-fs-summary --vers ${MDBOOK_FS_SUMMARY_VERSION} --verbose
 RUN cargo install mdbook-template --vers ${MDBOOK_TEMPLATE_VERSION} --verbose
 RUN cargo install mdbook-theme --vers ${MDBOOK_THEME_VERSION} --verbose
+RUN cargo install cargo-depgraph --vers ${CARGO_DEPGRAPH} --verbose
 
 RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
 
@@ -75,7 +83,7 @@ FROM scratch
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH \
-    RUST_VERSION=1.66.1
+    RUST_VERSION=1.67
 
 LABEL maintainer="steven.johnson@iohk.io"
 ENV RUST_LOG info
