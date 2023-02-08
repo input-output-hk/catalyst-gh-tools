@@ -2,7 +2,7 @@
 FROM rust:1.67-slim as build
 
 # Install nightly so we can use it to build rustdocs index pages
-RUN rustup toolchain install nightly-2023-02-07 \
+RUN rustup toolchain install nightly \
         --allow-downgrade \
         --profile minimal \
         --component clippy
@@ -92,7 +92,6 @@ COPY --from=build / /
 
 # used when serving mdbook
 EXPOSE 3000
-
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
