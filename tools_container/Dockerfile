@@ -67,7 +67,7 @@ RUN cargo install cargo-depgraph --vers ${CARGO_DEPGRAPH} --verbose
 
 RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
 
-RUN cargo install https://github.com/stevenj/dbviz.git
+RUN cargo install --git https://github.com/stevenj/dbviz.git
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
