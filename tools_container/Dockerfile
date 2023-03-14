@@ -65,7 +65,7 @@ RUN cargo install mdbook-fs-summary --vers ${MDBOOK_FS_SUMMARY_VERSION} --verbos
 RUN cargo install mdbook-template --vers ${MDBOOK_TEMPLATE_VERSION} --verbose
 RUN cargo install mdbook-theme --vers ${MDBOOK_THEME_VERSION} --verbose
 RUN cargo install cargo-depgraph --vers ${CARGO_DEPGRAPH} --verbose
-RUN cargo install refinery-cli --vers ${CARGO_REFINERY_CLI} --verbose
+RUN cargo install refinery_cli --vers ${CARGO_REFINERY_CLI} --verbose
 
 RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
 
