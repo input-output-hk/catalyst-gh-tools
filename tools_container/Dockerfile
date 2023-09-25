@@ -29,6 +29,7 @@ ARG MDBOOK_THEME_VERSION="0.1.2"
 ARG CARGO_SPELLCHECK_VERSION="0.12.3"
 ARG CARGO_DEPGRAPH="1.4.0"
 ARG CARGO_REFINERY_CLI="0.8.7"
+ARG CARGO_REFINERY_CLI="0.21.1"
 
 ENV CARGO_INSTALL_ROOT /usr/local/
 ENV CARGO_TARGET_DIR /tmp/target/
@@ -66,6 +67,7 @@ RUN cargo install mdbook-template --vers ${MDBOOK_TEMPLATE_VERSION} --verbose
 RUN cargo install mdbook-theme --vers ${MDBOOK_THEME_VERSION} --verbose
 RUN cargo install cargo-depgraph --vers ${CARGO_DEPGRAPH} --verbose
 RUN cargo install refinery_cli --vers ${CARGO_REFINERY_CLI} --verbose
+RUN cargo install uniffi_bindgen --vers ${CARGO_UNIFFI_BINDGEN} --verbose
 
 RUN cargo install cargo-cache --no-default-features --features ci-autoclean,vendored-libgit cargo-cache
 
