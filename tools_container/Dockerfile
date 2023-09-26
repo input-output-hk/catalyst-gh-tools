@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM rust:1.67-slim as build
+FROM rust:1.71-slim as build
 
 # Install nightly so we can use it to build rustdocs index pages
 RUN rustup toolchain install nightly \

@@ -5,7 +5,10 @@ on:
     paths:
       - tools_container
     branches:
-      - 'master'
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
   release:
     types: [published]
     tags:
