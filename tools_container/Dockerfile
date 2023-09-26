@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM rust:1.67-slim as build
+FROM rust:1.71-slim as build
 
 # Install nightly so we can use it to build rustdocs index pages
 RUN rustup toolchain install nightly \
@@ -29,7 +29,7 @@ ARG MDBOOK_THEME_VERSION="0.1.2"
 ARG CARGO_SPELLCHECK_VERSION="0.12.3"
 ARG CARGO_DEPGRAPH="1.4.0"
 ARG CARGO_REFINERY_CLI="0.8.7"
-ARG CARGO_REFINERY_CLI="0.21.1"
+ARG CARGO_UNIFFI_BINDGEN="0.21.1"
 
 ENV CARGO_INSTALL_ROOT /usr/local/
 ENV CARGO_TARGET_DIR /tmp/target/
